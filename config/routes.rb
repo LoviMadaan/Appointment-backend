@@ -9,4 +9,8 @@ Rails.application.routes.draw do
     registrations: 'users/registrations',
     passwords: 'users/passwords'
   }
+  root "doctors#index"
+  resources :doctors do
+    resources :appointments, only: %i[new create index destroy]
+  end
 end
