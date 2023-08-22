@@ -20,7 +20,7 @@ RSpec.describe 'appointments', type: :request do
         tags 'Create Appointment'
       response(200, 'successful') do
         consumes 'application/json'
-        parameter user_name: {
+        parameter user_namename: :user, in: :body, schema: {
           type: :object,
           properties: {
             city: { type: :string },
