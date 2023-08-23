@@ -1,6 +1,6 @@
 class AppointmentsController < ApplicationController
   def index
-    @appointments = Appointment.order('created_at desc')
+    @appointments = current_user.appointments.includes(:doctor).order('created_at desc')
     if @appointments
       render json: @appointments, status: :ok
     else
@@ -17,8 +17,15 @@ class AppointmentsController < ApplicationController
     end
   end
 
+  def new
+    @doctor = Doctor.find(params[:doctor_id])
+    @appoitment = @doctor.appointments.build
+  end
+
   def create
-    @appointment = Appointment.new(appointment_params.merge(user_id: params[:user_id], doctor_id: params[:doctor_id]))
+    @doctor = Doctor.find(params[:doctor_id])
+    @appointment = @doctor.appointments.build(appointment_params)
+    @appointment.user = current_user
     if @appointment.save
       render json: @appointment, status: :created
     else
@@ -47,6 +54,6 @@ class AppointmentsController < ApplicationController
   private
 
   def appointment_params
-    params.require(:appointment).permit(:id, :user_name, :user_id, :doctor_id, :city, :date)
+    params.require(:appointment).permit(:city, :date)
   end
 end

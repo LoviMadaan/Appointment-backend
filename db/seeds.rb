@@ -21,7 +21,7 @@ third_doctor = Doctor.create!(user_id: second_user.id, name: 'Dr Mohsen', bio: '
 fourth_doctor = Doctor.create!(user_id: third_user.id, name: 'Dr Louisa', bio: 'Dentist', image: 'https://static.facegfx.com/2013/sweet-smiling-female-doctor-image-download_247526736.jpg')
 fifth_doctor = Doctor.create!(user_id: fourth_user.id, name: 'Dr Edmund', bio: 'Optometrist', image: 'https://cdn.wallpapersafari.com/87/12/8XzqUv.jpg')
 
-first_appointment = Appointment.create!(user_id: first_user.id, doctor_id: first_doctor.id, city: "Accra", appointment_time: "2022-12-12")
+first_appointment = Appointment.create!(user_id: first_user.id, doctor_id: first_doctor.id, city: "Accra", date: "2022-12-12")
 
 
 puts 'Created successful ...'
