@@ -1,7 +1,7 @@
 databases:
   - name: fullstack
-    databaseName: fullstack_0ddt
-    user: fullstack_0ddt_user
+    databaseName: fullstack_a6io
+    user: fullstack_a6io_user
 
 services:
   - type: web
@@ -12,7 +12,7 @@ services:
     envVars:
       - key: DATABASE_URL
         fromDatabase:
-          name: fullstack_0ddt
+          name: fullstack_a6io
           property: connectionString
       - key: RAILS_MASTER_KEY
         sync: false
