@@ -1,0 +1,62 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  appointments:
+    get:
+      summary: list appointments
+      tags:
+      - All Appointments
+      responses:
+        '200':
+          description: successful
+    post:
+      summary: create appointment
+      tags:
+      - Create Appointment
+      parameters: []
+      responses:
+        '200':
+          description: successful
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                city:
+                  type: string
+                date:
+                  type: string
+                  format: date-time
+                user_id:
+                  type: integer
+                doctor_id:
+                  type: integer
+              required:
+              - city
+              - apppointment_time
+              - user_id
+              - doctor_id
+  "/appointments/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    delete:
+      summary: delete appointment
+      tags:
+      - Delete Appointment
+      responses:
+        '200':
+          description: Appointment created successfully!
+servers:
+- url: https://{defaultHost}
+  variables:
+    defaultHost:
+      default: www.example.com
