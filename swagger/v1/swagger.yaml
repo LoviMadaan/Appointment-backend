@@ -1,0 +1,89 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/doctors":
+    get:
+      summary: Retrieve a list of doctors
+      tags:
+      - Doctors
+      responses:
+        '200':
+          description: List of doctors
+  "/doctors/{doctor_id}":
+    get:
+      summary: Retrieve a single doctor
+      tags:
+      - Doctors
+      parameters:
+      - name: doctor_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Doctor details
+        '404':
+          description: Doctor not found
+  "/signup":
+    post:
+      summary: create a user
+      tags:
+      - Users
+      parameters: []
+      responses:
+        '201':
+          description: user created
+        '422':
+          description: Invalid request
+      requestBody:
+        content:
+          appication/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+                password_confirmation:
+                  type: string
+              required:
+              - name
+              - email
+              - password
+              - password_confirmation
+  "/login":
+    post:
+      summary: login a user
+      tags:
+      - Users
+      parameters: []
+      responses:
+        '200':
+          description: user loggedin
+        '401':
+          description: Unauthorized
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+              - email
+              - password
+servers:
+- url: https://{defaultHost}
+  variables:
+    defaultHost:
+      default: https://doctor-4phi.onrender.com
