@@ -8,7 +8,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       build_resource(sign_up_params)
       if resource.save
         sign_in(resource_name, resource)
-        render json: { resource: UserSerializer.new(resource) }
+        render json:{ resource: UserSerializer.new(resource) }
       else
         render json: { error: "'Failed to create user. Check on input!" }, status: :unprocessable_entity
       end
