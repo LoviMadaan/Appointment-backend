@@ -74,7 +74,7 @@ Doctor Appointment provides a seamless and reliable booking experience.
 
 ## 🗎 API Documentation <a name="api-docs"></a>
 
-- Check here API documentation [Doctor Appointment](coming soon)
+- Check here API documentation [Doctor Appointment]([coming soon](http://localhost:3000/api-docs/index.html))
 
 <!-- Kanban Board -->
 
@@ -91,7 +91,7 @@ Doctor Appointment provides a seamless and reliable booking experience.
 
 ## 🚀 Live Demo <a name="live-demo"></a>
 
-- [Live Demo](coming soon)
+- [Live Demo]([coming soon](https://doctor-4phi.onrender.com))
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
