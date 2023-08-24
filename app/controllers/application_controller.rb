@@ -1,3 +1,21 @@
 class ApplicationController < ActionController::API
-  before_action :authenticate_user!
+  attr_reader :current_user
+
+  before_action :authenticate_token!
+
+  private
+
+  def authenticate_token!
+    payload = JsonWebToken.decode(auth_token)
+    p payload
+    @current_user = User.find(payload['sub'])
+  rescue JWT::ExpiredSignature
+    render json: { error: 'your authentication token is expired' }
+  rescue JWT::DecodeError
+    render json: { error: 'Incorrect authentication token' }
+  end
+
+  def auth_token
+    @auth_token ||= request.headers.fetch('Authorization', '').split.last
+  end
 end

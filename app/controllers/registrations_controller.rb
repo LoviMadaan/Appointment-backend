@@ -1,14 +1,13 @@
-class Users::RegistrationsController < Devise::RegistrationsController
-  respond_to :json
+class RegistrationsController < ApplicationController
+  skip_before_action :authenticate_token!
 
   def create
     if user_exists?(sign_up_params[:email])
       render json: { error: 'Email already exists. Please choose a different email!' }, status: :unprocessable_entity
     else
-      build_resource(sign_up_params)
-      if resource.save
-        sign_in(resource_name, resource)
-        render json:{ resource: UserSerializer.new(resource) }
+      user = User.new(sign_up_params)
+      if user.save
+        render json: { user: UserSerializer.new(user), token: JsonWebToken.encode({ sub: user.id }) }
       else
         render json: { error: "'Failed to create user. Check on input!" }, status: :unprocessable_entity
       end
