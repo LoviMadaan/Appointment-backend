@@ -6,15 +6,15 @@ class ApplicationController < ActionController::API
   private
 
   def authenticate_token!
-    payload = JsonWebToken.decode(auth_token)
-    @current_user = User.find(payload['sub'])
-  rescue JWT::ExpiredSignature
-    render json: { error: 'your authentication token is expired' }
-  rescue JWT::DecodeError
-    render json: { error: 'Incorrect authentication token' }
-  end
-
-  def auth_token
-    @auth_token ||= request.headers.get('Authorization').split.last
+    header = request.headers['Authorization']
+    header = header.split.last if header
+    begin
+      @payload = JsonWebToken.decode(header)
+      @current_user = User.find(@payload['sub'])
+    rescue JWT::ExpiredSignature
+      render json: { error: 'your authentication token is expired' }
+    rescue JWT::DecodeError
+      render json: { error: 'Incorrect authentication token' }
+    end
   end
 end
