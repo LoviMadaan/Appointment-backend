@@ -4,59 +4,86 @@ info:
   title: API V1
   version: v1
 paths:
-  appointments:
+  "/doctors":
     get:
-      summary: list appointments
+      summary: Retrieve a list of doctors
       tags:
-      - All Appointments
+      - Doctors
       responses:
         '200':
-          description: successful
-    post:
-      summary: create appointment
+          description: List of doctors
+  "/doctors/{doctor_id}":
+    get:
+      summary: Retrieve a single doctor
       tags:
-      - Create Appointment
+      - Doctors
+      parameters:
+      - name: doctor_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Doctor details
+        '404':
+          description: Doctor not found
+  "/signup":
+    post:
+      summary: create a user
+      tags:
+      - Users
+      parameters: []
+      responses:
+        '201':
+          description: user created
+        '422':
+          description: Invalid request
+      requestBody:
+        content:
+          appication/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+                password_confirmation:
+                  type: string
+              required:
+              - name
+              - email
+              - password
+              - password_confirmation
+  "/login":
+    post:
+      summary: login a user
+      tags:
+      - Users
       parameters: []
       responses:
         '200':
-          description: successful
+          description: user loggedin
+        '401':
+          description: Unauthorized
       requestBody:
         content:
           application/json:
             schema:
               type: object
               properties:
-                city:
+                email:
                   type: string
-                date:
+                password:
                   type: string
-                  format: date-time
-                user_id:
-                  type: integer
-                doctor_id:
-                  type: integer
               required:
-              - city
-              - apppointment_time
-              - user_id
-              - doctor_id
-  "/appointments/{id}":
-    parameters:
-    - name: id
-      in: path
-      description: id
-      required: true
-      schema:
-        type: string
-    delete:
-      summary: delete appointment
-      tags:
-      - Delete Appointment
-      responses:
-        '200':
-          description: Appointment created successfully!
+              - email
+              - password
 servers:
 - url: https://{defaultHost}
   variables:
     defaultHost:
-      default: www.example.com
+      default: https://doctor-4phi.onrender.com
