@@ -15,6 +15,6 @@ class ApplicationController < ActionController::API
   end
 
   def auth_token
-    @auth_token ||= request.headers.fetch('Authorization', '').split(' ').last
+    @auth_token ||= request.headers.get('Authorization').split.last
   end
 end
