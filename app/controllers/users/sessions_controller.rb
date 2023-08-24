@@ -7,7 +7,7 @@ class Users::SessionsController < Devise::SessionsController
       sign_in(resource_name, resource)
       user_serializer = UserSerializer.new(resource)
       render json: {
-        user: user_serializer.to_json
+        user: user_serializer
       }, status: :ok
     else
       render json: {
